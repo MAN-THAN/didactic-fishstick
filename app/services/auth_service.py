@@ -70,7 +70,7 @@ def login(credentials, response : Response, db: Session):
         secure=settings.COOKIE_SECURE,
         samesite="lax",
         max_age=settings.REFRESH_TOKEN_EXPIRE_DAYS * 24 * 60 * 60,
-        path="/auth",
+        path="/",
     )
 
     return {
@@ -144,7 +144,7 @@ def refresh_token(
         secure=settings.COOKIE_SECURE,
         samesite="lax",
         max_age=settings.REFRESH_TOKEN_EXPIRE_DAYS * 24 * 60 * 60,
-        path="/auth",
+        path="/",
     )
 
     return {'access_token' : access_token}  
@@ -172,7 +172,7 @@ def logout(response: Response, raw_refresh_token, db : Session):
 
     response.delete_cookie(
         key=settings.REFRESH_COOKIE_NAME,
-        path="/auth",
+        path="/",
     )
 
     return {
