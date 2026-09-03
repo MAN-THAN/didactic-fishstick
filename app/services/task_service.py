@@ -3,11 +3,66 @@ from app.models.task_model import Task
 from sqlalchemy import select
 from sqlalchemy.orm import Session
 
+def getTasks(
+    search,
+    page,
+    limit,
+    status,
+    sort,
+    current_user,
+    db: Session
+):
+    stmt = select(Task).where(
+        Task.user_id == current_user.id
+    )
+    if search:
+        stmt = stmt.where(
+            Task.title.contains(search)
+        )
 
-def getTasks(current_user, db: Session):
-    stmt = select(Task).where(Task.user_id == current_user.id)
-    result = db.execute(stmt).scalars().all()
-    return {'msg' : 'Successful', 'task_list' : result}
+    # -------------------------
+    # STATUS FILTER
+    # -------------------------
+    if status == "active":
+        stmt = stmt.where(
+            Task.is_completed == False
+        )
+
+    elif status == "completed":
+        stmt = stmt.where(
+            Task.is_completed == True
+        )
+
+    # -------------------------
+    # SORT
+    # -------------------------
+    if sort == "oldest":
+        stmt = stmt.order_by(Task.created_at.asc())
+    else:
+        # default = newest
+        stmt = stmt.order_by(Task.created_at.desc())
+
+    # -------------------------
+    # PAGINATION
+    # -------------------------
+    stmt = (
+        stmt
+        .offset((page - 1) * limit)
+        .limit(limit)
+    )
+
+    tasks = db.scalars(stmt).all()
+   # If we received a full page, there may be another page.
+    has_more = len(tasks) == limit
+
+    return {
+        "msg": "Successful",
+        "task_list": tasks,
+        "page": page,
+        "limit": limit,
+        'has_more': has_more
+    }
+
 
 def getTask(task_id, db: Session):
     stmt = select(Task).where(Task.id == task_id)
