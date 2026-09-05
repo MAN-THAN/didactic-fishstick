@@ -2,6 +2,8 @@ from fastapi import FastAPI
 from app.routers import task_routes, auth_routes, user_routes
 from app.database import engine, Base
 from app.models.task_model import Task
+from app.models.user_model import User
+from app.models.refresh_token_model import RefreshToken
 # cors middleware
 from fastapi.middleware.cors import CORSMiddleware
 

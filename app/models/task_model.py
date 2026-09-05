@@ -1,5 +1,5 @@
 from datetime import datetime
-from sqlalchemy import Boolean, DateTime, String, text, ForeignKey
+from sqlalchemy import Boolean, DateTime, String, text, ForeignKey, Integer
 from sqlalchemy.orm import Mapped, mapped_column, relationship
 from app.database import Base
 
@@ -39,6 +39,9 @@ class Task(Base):
         server_default=text("false"),
         nullable=False
     )
+
+    priority: Mapped[int] = mapped_column(Integer, nullable=True) 
+
        # Foreign Key
     user_id: Mapped[int] = mapped_column(
         ForeignKey("users.id"),

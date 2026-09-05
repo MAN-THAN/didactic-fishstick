@@ -8,6 +8,8 @@ from app.database import Base
 from app.models.task_model import Task
 from app.models.user_model import User
 from app.models.refresh_token_model import RefreshToken
+from app.config import settings
+
 
 # this is the Alembic Config object, which provides
 # access to the values within the .ini file in use.
@@ -42,7 +44,6 @@ def run_migrations_offline() -> None:
     script output.
 
     """
-    from app.config import settings
 
     config.set_main_option(
     "sqlalchemy.url",
@@ -67,6 +68,10 @@ def run_migrations_online() -> None:
     and associate a connection with the context.
 
     """
+    config.set_main_option(
+    "sqlalchemy.url",
+    settings.DATABASE_URL
+)
     connectable = engine_from_config(
         config.get_section(config.config_ini_section, {}),
         prefix="sqlalchemy.",
