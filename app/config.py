@@ -17,6 +17,8 @@ class Settings(BaseSettings):
 
    COOKIE_SECURE: bool = True
 
+   GEMINI_API_KEY: str
+
    model_config = SettingsConfigDict(env_file=".env")
 
 settings = Settings()

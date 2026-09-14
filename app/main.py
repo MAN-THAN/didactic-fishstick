@@ -1,5 +1,5 @@
 from fastapi import FastAPI
-from app.routers import task_routes, auth_routes, user_routes
+from app.routers import task_routes, auth_routes, user_routes, dashboard_routes
 from app.database import engine, Base
 from app.models.task_model import Task
 from app.models.user_model import User
@@ -22,3 +22,4 @@ app.add_middleware(
 app.include_router(task_routes.router)
 app.include_router(auth_routes.router)
 app.include_router(user_routes.router)
+app.include_router(dashboard_routes.router)
