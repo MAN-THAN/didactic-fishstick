@@ -84,7 +84,12 @@ def refresh_token(
     raw_refresh_token,
     db: Session,
 ):
-    print('ASDFGHJK', raw_refresh_token)
+    # print('ASDFGHJK', raw_refresh_token)
+    if not raw_refresh_token:
+        raise HTTPException(
+            status_code=401,
+            detail="Refresh token missing",
+        )       
     token_hash = hash_refresh_token(raw_refresh_token)
 
     stmt = select(RefreshToken).where(

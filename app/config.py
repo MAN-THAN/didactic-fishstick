@@ -17,7 +17,11 @@ class Settings(BaseSettings):
 
    COOKIE_SECURE: bool = True
 
-   GEMINI_API_KEY: str
+   GOOGLE_GENAI_MODEL: str
+
+   GOOGLE_GENAI_TEMPERATURE: float
+
+   GOOGLE_GENAI_API_KEY: str
 
    model_config = SettingsConfigDict(env_file=".env")
 
