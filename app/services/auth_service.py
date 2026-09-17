@@ -76,7 +76,8 @@ def login(credentials, response : Response, db: Session):
     return {
         'msg' : 'Loggedin successfully',
         'access_token' : access_token,
-        'token_type' : 'bearer'
+        'token_type' : 'bearer',
+        'user_name' : user.first_name + ' ' + user.last_name
     }
 
 def refresh_token(
