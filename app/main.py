@@ -13,7 +13,7 @@ Base.metadata.create_all(bind=engine)
 app = FastAPI()
 app.add_middleware(
     CORSMiddleware,
-    allow_origins=['http://localhost:5173', 'https://react-frontend-d98fz3c7o-manthan-3aa7.vercel.app'],
+    allow_origins=['http://localhost:5173', 'https://react-frontend-fz68cokhv-manthan-3aa7.vercel.app'],
     allow_credentials=True,
     allow_methods=["*"],
     allow_headers=["*"],
